@@ -8,7 +8,7 @@ Group:		Applications/Communications
 Source0:	http://www.bnet.pl/~jajcus/%{name}/%{name}-%{version}.tar.gz
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
-BuildRequires:	libgadu-devel >= 0.9.0.20021028
+BuildRequires:	libgadu-devel >= 0.9.0.20030113
 BuildRequires:	glib-devel
 Requires(post,preun):	/sbin/chkconfig
 Requires:	jabber
