@@ -1,16 +1,16 @@
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
-Version:	1.4.1
+Version:	1.4.2
 Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://www.jabberstudio.org/files/%{name}/%{name}-%{version}.tar.gz
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Url:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	libgadu-devel >= 20030130
+BuildRequires:	libgadu-devel >= 2:1.0
 BuildRequires:	glib-devel
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
@@ -29,7 +29,7 @@ u¿ytkownikami GaduGadu.
 %patch0 -p1
 
 %build
-%configure %{?debug:--with-efence}
+%configure %{?debug:--with-efence} LDFLAGS="%{rpmldflags} -lpthread" # workaround for bug in libgadu
 %{__make}
 
 %install
