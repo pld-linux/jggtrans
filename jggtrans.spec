@@ -52,9 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/chkconfig --add jggtrans
 if [ -r /var/lock/subsys/jggtrans ]; then
-       	/etc/rc.d/init.d/jggtrans restart >&2
+	/etc/rc.d/init.d/jggtrans restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/jggtrans start\" to start Jabber GaduGadu transport."
+	echo "Run \"/etc/rc.d/init.d/jggtrans start\" to start Jabber GaduGadu transport."
 fi
 
 %preun
