@@ -29,7 +29,6 @@ case "$1" in
 		RETVAL=$?
 		if [ $RETVAL -eq 0 ] ; then
 			touch /var/lock/subsys/jggtrans
-			ln -sf /var/lib/jabber/jggtrans.pid /var/run/jggtrans.pid
 		fi
 	else
 		msg_Already_Running jggtrans
@@ -39,7 +38,6 @@ case "$1" in
   stop)
 	msg_stopping  "Jabber GaduGadu transport"
 	killproc jggtrans
-	rm -f /var/run/jggtrans.pid
 	rm -f /var/lock/subsys/jggtrans
 	;;
   restart|reload)
