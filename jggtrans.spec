@@ -1,14 +1,14 @@
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
-Version:	1.1.0
-Release:	3
+Version:	1.2.0
+Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.bnet.pl/~jajcus/%{name}/%{name}-%{version}.tar.gz
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
-BuildRequires:	libgadu-devel >= 0.9.0.20020528
+BuildRequires:	libgadu-devel >= 0.9.0.20021028
 BuildRequires:	glib-devel
 Requires:	jabber
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
