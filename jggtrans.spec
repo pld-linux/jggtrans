@@ -10,6 +10,7 @@ Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 BuildRequires:	libgadu-devel >= 0.9.0.20021028
 BuildRequires:	glib-devel
+Requires(post,preun):	/sbin/chkconfig
 Requires:	jabber
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
