@@ -15,7 +15,7 @@ Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-spooldir.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	glib-devel
-BuildRequires:	libgadu-devel >= 2:1.0
+BuildRequires:	libgadu-devel >= 4:1.4
 BuildRequires:	pkgconfig
 Requires:	jabber-common
 Requires(post,preun):	/sbin/chkconfig
