@@ -1,0 +1,16 @@
+diff -durN jabber-gg-transport-0.9.orig/ggtrans.xml jabber-gg-transport-0.9/ggtrans.xml
+--- jabber-gg-transport-0.9.orig/ggtrans.xml	Tue Jan 15 15:03:47 2002
++++ jabber-gg-transport-0.9/ggtrans.xml	Tue Jan 15 17:08:29 2002
+@@ -1,3 +1,4 @@
++<!--run: /usr/sbin/jggtrans -->
+ <ggtrans>
+ 
+   <!-- For this to work, you should also update /etc/jabber/jabber.xml
+diff -durN jabber-gg-transport-0.9.orig/ggtrans.xml.Pl jabber-gg-transport-0.9/ggtrans.xml.Pl
+--- jabber-gg-transport-0.9.orig/ggtrans.xml.Pl	Tue Jan 15 15:03:53 2002
++++ jabber-gg-transport-0.9/ggtrans.xml.Pl	Tue Jan 15 17:08:42 2002
+@@ -1,3 +1,4 @@
++<!--run: /usr/sbin/jggtrans -->
+ <!--
+        To polska wersja przykładowego pliku konfiguracyjnego.
+ 
