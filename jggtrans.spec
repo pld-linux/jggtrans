@@ -1,7 +1,7 @@
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
-Version:	1.4.0
+Version:	2.0.7
 Release:	1
 License:	GPL
 Group:		Applications/Communications
@@ -9,8 +9,9 @@ Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
+Patch1:		%{name}-disable_roster_import.patch
 Url:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	libgadu-devel >= 20030130
+BuildRequires:	libgadu-devel >= 1.0
 BuildRequires:	glib-devel
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
@@ -27,6 +28,7 @@ u¿ytkownikami GaduGadu.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure %{?debug:--with-efence}
@@ -41,6 +43,8 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
 install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,7 +65,7 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del jggtrans
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO README.Pl jggtrans.xml.Pl
 %attr(755,root,root) %{_sbindir}/*
