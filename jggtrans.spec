@@ -16,9 +16,10 @@ URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	glib-devel
 BuildRequires:	libgadu-devel >= 2:1.0
 BuildRequires:	pkgconfig
+Requires:	jabber-common
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/usr/bin/perl
-Conflicts:	jabber
+Requires(pre):	jabber-common
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -35,17 +36,19 @@ u¿ytkownikami GaduGadu.
 %patch2 -p1
 
 %build
-%configure %{?debug:--with-efence}
+%configure \
+	%{?debug:--with-efence} \
+	--sysconfdir=/etc/jabber
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig,/var/lib/jggtrans}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir}/jabber,/etc/rc.d/init.d,/etc/sysconfig,/var/lib/jggtrans}
 
 %{__make} install \
-	DESTDIR="$RPM_BUILD_ROOT"
+	DESTDIR="$RPM_BUILD_ROOT" 
 
-install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
+install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}/jabber
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 
@@ -55,11 +58,11 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /etc/jabberd/secret ] ; then
-	SECRET=`cat /etc/jabberd/secret`
+if [ -f /etc/jabber/secret ] ; then
+	SECRET=`cat /etc/jabber/secret`
 	if [ -n "$SECRET" ] ; then
         	echo "Updating component authentication secret in jggtrans.xml..."
-		perl -pi -e "s/>secret</>$SECRET</" /etc/jggtrans.xml
+		perl -pi -e "s/>secret</>$SECRET</" /etc/jabber/jggtrans.xml
 	fi
 fi
 /sbin/chkconfig --add jggtrans
@@ -81,7 +84,7 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO README.Pl jggtrans.xml.Pl
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jggtrans.xml
+%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jabber/jggtrans.xml
 %attr(754,root,root) /etc/rc.d/init.d/jggtrans
 %attr(770,root,jabber) /var/lib/jggtrans
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jggtrans
