@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	1064637800b0cde435cebc31d27ecc88
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
