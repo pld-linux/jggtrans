@@ -10,9 +10,9 @@ Source0:	http://www.jabberstudio.org/files/%{name}/%{name}-%{version}.tar.gz
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
-Url:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	libgadu-devel >= 2:1.0
+URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	glib-devel
+BuildRequires:	libgadu-devel >= 2:1.0
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
 Requires:	jabber
@@ -37,7 +37,8 @@ u¿ytkownikami GaduGadu.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
 
-%{__make} install DESTDIR="$RPM_BUILD_ROOT"
+%{__make} install \
+	DESTDIR="$RPM_BUILD_ROOT"
 
 install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
