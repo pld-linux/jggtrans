@@ -2,7 +2,7 @@ Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
 Version:	2.0.7
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.jabberstudio.org/files/%{name}/%{name}-%{version}.tar.gz
@@ -12,6 +12,7 @@ Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-jabberd20.patch
 Patch2:		%{name}-spooldir.patch
+Patch3:		%{name}-disable_roster_import.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	glib-devel
 BuildRequires:	libgadu-devel >= 2:1.0
@@ -34,6 +35,7 @@ u¿ytkownikami GaduGadu.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %configure \
