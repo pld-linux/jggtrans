@@ -1,3 +1,5 @@
+%bcond_with	libgadu_snapshot
+
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
@@ -36,6 +38,7 @@ u¿ytkownikami GaduGadu.
 %build
 %configure \
 	%{?debug:--with-efence} \
+	%{?with_libgadu_snapshot:--with-libgadu-snapshot} \
 	--sysconfdir=/etc/jabber
 %{__make}
 
