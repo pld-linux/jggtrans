@@ -1,20 +1,19 @@
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
-Version:	0.9
+Version:	0.9.8
 Release:	1
 License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 Source0:	http://www.bnet.pl/~jajcus/%{name}/%{name}-%{version}.tar.gz
-Patch0:		%{name}-startup.patch
-BuildRequires:	libgg
-BuildRequires:	glib
+Source1:	jggtrans.init
+Source2:	jggtrans.sysconfig
+BuildRequires:	libgadu-devel
+BuildRequires:	glib-devel
 Requires:	jabber
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_sysconfdir /etc/jabber
 
 %description
 This module allows Jabber communicate with GaduGadu server.
@@ -25,7 +24,6 @@ z u¿ytkownikami GaduGadu
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure
@@ -35,29 +33,27 @@ z u¿ytkownikami GaduGadu
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
-install -d $RPM_BUILD_ROOT%{_sysconfdir}
-install ggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
+install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 
-gzip -9nf AUTHORS ChangeLog README TODO README.Pl ggtrans.xml.Pl
+gzip -9nf AUTHORS ChangeLog README TODO README.Pl jggtrans.xml.Pl
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -r /var/lock/subsys/jabberd ]; then
-	if [ -r /var/lock/subsys/jabber-ggtrans ]; then
-        	/etc/rc.d/init.d/jabberd restart ggtrans >&2
-	else
-        	echo "Run \"/etc/rc.d/init.d/jabberd start ggtrans\" to start GG transport."
-	fi
+if [ -r /var/lock/subsys/jggtrans ]; then
+       	/etc/rc.d/init.d/jggtrans restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/jabberd start\" to start Jabber server."
+        echo "Run \"/etc/rc.d/init.d/jggtrans start\" to start Jabber GaduGadu transport."
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -r /var/lock/subsys/jabber-ggtrans ]; then
-		/etc/rc.d/init.d/jabberd stop ggtrans >&2
+	if [ -r /var/lock/subsys/jggtrans ]; then
+		/etc/rc.d/init.d/jggtrans stop >&2
 	fi
 fi
 
@@ -65,4 +61,6 @@ fi
 %defattr(644,root,root,755)
 %doc *.gz
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
+%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jggtrans.xml
+%attr(755,root,root) /etc/rc.d/init.d/jggtrans
+%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jggtrans
