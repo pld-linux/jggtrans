@@ -1,7 +1,7 @@
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
-Version:	1.4.2
+Version:	2.0.0
 Release:	1
 License:	GPL
 Group:		Applications/Communications
@@ -29,7 +29,7 @@ u¿ytkownikami GaduGadu.
 %patch0 -p1
 
 %build
-%configure %{?debug:--with-efence} LDFLAGS="%{rpmldflags} -lpthread" # workaround for bug in libgadu
+%configure %{?debug:--with-efence}
 %{__make}
 
 %install
@@ -41,6 +41,8 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
 install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,7 +63,7 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del jggtrans
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO README.Pl jggtrans.xml.Pl
 %attr(755,root,root) %{_sbindir}/*
