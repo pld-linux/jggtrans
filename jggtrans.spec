@@ -1,10 +1,10 @@
-%bcond_without	libgadu_snapshot
+%bcond_with	libgadu_snapshot
 
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
 Version:	2.0.9
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://www.jabberstudio.org/files/%{name}/%{name}-%{version}.tar.gz
