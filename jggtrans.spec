@@ -17,15 +17,15 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This module allows Jabber communicate with GaduGadu server.
 
 %description -l pl
-Modu³ ten umo¿liwia u¿ytkownikom Jabber komunikowaæ siê 
-z u¿ytkownikami GaduGadu
+Modu³ ten umo¿liwia u¿ytkownikom Jabber komunikowaæ siê z
+u¿ytkownikami GaduGadu
 
 %prep
 %setup -q
 
 %build
 %configure
-%{__make} 
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
