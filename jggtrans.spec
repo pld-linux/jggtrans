@@ -41,6 +41,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/sbin/chkconfig --add jggtrans
 if [ -r /var/lock/subsys/jggtrans ]; then
        	/etc/rc.d/init.d/jggtrans restart >&2
 else
@@ -52,6 +53,7 @@ if [ "$1" = "0" ]; then
 	if [ -r /var/lock/subsys/jggtrans ]; then
 		/etc/rc.d/init.d/jggtrans stop >&2
 	fi
+	/sbin/chkconfig --del jggtrans
 fi
 
 %files
