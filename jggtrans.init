@@ -14,9 +14,13 @@
 [ -f /etc/sysconfig/jggtrans ] && . /etc/sysconfig/jggtrans
 
 # Check that networking is up.
-if is_no "${NETWORKING}"; then
-	msg_Network_Down jggtrans
-	exit 1
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		msg_network_down jggtrans
+		exit 1
+	fi
+else
+	exit 0
 fi
 
 # See how we were called.
@@ -27,18 +31,22 @@ case "$1" in
 		msg_starting "Jabber GaduGadu transport"
 		daemon jggtrans -u jabber $JGGTRANS_FLAGS
 		RETVAL=$?
-		if [ $RETVAL -eq 0 ] ; then
-			touch /var/lock/subsys/jggtrans
-		fi
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/jggtrans
 	else
-		msg_Already_Running jggtrans
+		msg_already_running jggtrans
 		exit 1
 	fi
 	;;
   stop)
-	msg_stopping  "Jabber GaduGadu transport"
-	killproc jggtrans
-	rm -f /var/lock/subsys/jggtrans
+	# Check if the service is already running?
+	if [ -f /var/lock/subsys/jggtrans ]; then
+		msg_stopping  "Jabber GaduGadu transport"
+		killproc jggtrans
+		rm -f /var/lock/subsys/jggtrans
+	else
+		msg_not_running jggtrans
+		exit 1
+	fi
 	;;
   restart|reload)
 	$0 stop
@@ -48,7 +56,7 @@ case "$1" in
 	status jggtrans
 	;;
   *)
-	msg_Usage "$0 {start|stop|restart|reload|status}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 esac
 
