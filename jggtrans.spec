@@ -14,7 +14,7 @@ Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-spooldir.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	expat >= 1.95.1
+BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	glib2-devel
 BuildRequires:	libgadu-devel >= 4:1.4
 BuildRequires:	libidn-devel >= 0.3.0
