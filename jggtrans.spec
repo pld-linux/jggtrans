@@ -1,4 +1,4 @@
-%bcond_with	libgadu_snapshot
+%bcond_without	libgadu_snapshot
 
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
