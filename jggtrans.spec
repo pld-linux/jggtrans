@@ -19,7 +19,7 @@ This module allows Jabber communicate with GaduGadu server.
 
 %description -l pl
 Modu³ ten umo¿liwia u¿ytkownikom Jabber komunikowaæ siê z
-u¿ytkownikami GaduGadu
+u¿ytkownikami GaduGadu.
 
 %prep
 %setup -q
@@ -30,9 +30,10 @@ u¿ytkownikami GaduGadu
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
 
 %{__make} install DESTDIR="$RPM_BUILD_ROOT"
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
+
 install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
