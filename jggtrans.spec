@@ -17,7 +17,7 @@ URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	expat >= 1.95.1
 BuildRequires:	glib2-devel
 BuildRequires:	libgadu-devel >= 4:1.4
-BuildRequires:	libidn >= 0.3.0
+BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	pkgconfig
 Requires:	jabber-common
 Requires(post,preun):	/sbin/chkconfig
