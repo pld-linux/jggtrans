@@ -10,7 +10,7 @@ Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Url:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	libgadu-devel >= 0.9.0.20030130
+BuildRequires:	libgadu-devel >= 20030130
 BuildRequires:	glib-devel
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
