@@ -14,7 +14,7 @@ Requires:	jabber
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-This module allows Jabber communicate with GaduGadu server.
+This module allows Jabber to communicate with GaduGadu server.
 
 %description -l pl
 Modu³ ten umo¿liwia u¿ytkownikom Jabbera komunikowanie siê z
