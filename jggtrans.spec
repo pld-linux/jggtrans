@@ -10,12 +10,15 @@ Source0:	http://www.jabberstudio.org/files/%{name}/%{name}-%{version}.tar.gz
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
+Patch1:		%{name}-jabberd20.patch
+Patch2:		%{name}-spooldir.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	glib-devel
 BuildRequires:	libgadu-devel >= 2:1.0
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
-Requires:	jabber
+Requires(post):	/usr/bin/perl
+Conflicts:	jabber
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,6 +31,8 @@ u¿ytkownikami GaduGadu.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 %configure %{?debug:--with-efence}
@@ -35,7 +40,7 @@ u¿ytkownikami GaduGadu.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig}
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d,/etc/sysconfig,/var/lib/jggtrans}
 
 %{__make} install \
 	DESTDIR="$RPM_BUILD_ROOT"
@@ -50,6 +55,13 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 rm -rf $RPM_BUILD_ROOT
 
 %post
+if [ -f /etc/jabberd/secret ] ; then
+	SECRET=`cat /etc/jabberd/secret`
+	if [ -n "$SECRET" ] ; then
+        	echo "Updating component authentication secret in jggtrans.xml..."
+		perl -pi -e "s/>secret</>$SECRET</" /etc/jggtrans.xml
+	fi
+fi
 /sbin/chkconfig --add jggtrans
 if [ -r /var/lock/subsys/jggtrans ]; then
 	/etc/rc.d/init.d/jggtrans restart >&2
@@ -71,4 +83,5 @@ fi
 %attr(755,root,root) %{_sbindir}/*
 %attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jggtrans.xml
 %attr(754,root,root) /etc/rc.d/init.d/jggtrans
+%attr(770,root,jabber) /var/lib/jggtrans
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jggtrans
