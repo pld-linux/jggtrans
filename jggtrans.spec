@@ -11,7 +11,7 @@ Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-disable_roster_import.patch
 Url:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	libgadu-devel >= 1.0
+BuildRequires:	libgadu-devel >= 4:1.0
 BuildRequires:	glib-devel
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
