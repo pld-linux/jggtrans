@@ -1,0 +1,47 @@
+diff -durN jabber-gg-transport-2.0.7.orig/src/message.c jabber-gg-transport-2.0.7/src/message.c
+--- jabber-gg-transport-2.0.7.orig/src/message.c	2003-09-08 10:02:40.000000000 +0200
++++ jabber-gg-transport-2.0.7/src/message.c	2004-02-12 12:31:48.587124632 +0100
+@@ -54,8 +54,8 @@
+ 				const char *args, xmlnode msg);
+ 
+ MsgCommand msg_commands[]={
+-	{"get roster","gr",N_("Download user list from server"),message_get_roster,0},
+-	{"import roster","ir",N_("Add users from the user list on server (not recommended - nicknames are not preserved)"),message_import_roster,0},
++/*	{"get roster","gr",N_("Download user list from server"),message_get_roster,0},
++	{"import roster","ir",N_("Add users from the user list on server (not recommended - nicknames are not preserved)"),message_import_roster,0},*/
+ 	{"friends only","fo",N_("\"Only for friends\" mode"),message_friends_only,0},
+ 	{"invisible","iv",N_("\"Invisible\" mode"),message_invisible,0},
+ 	{"locale","loc",N_("Set user locale (language)"),message_locale,0},
+diff -durN jabber-gg-transport-2.0.7.orig/src/register.c jabber-gg-transport-2.0.7/src/register.c
+--- jabber-gg-transport-2.0.7.orig/src/register.c	2003-09-08 09:02:01.000000000 +0200
++++ jabber-gg-transport-2.0.7/src/register.c	2004-02-12 12:32:11.037570322 +0100
+@@ -387,8 +387,8 @@
+ 	else value=NULL;
+ 	if (value!=NULL){
+ 		tmp=xmlnode_get_data(value);
+-		if (!strcmp(tmp,"import")) import_roster=1;
+-		else if (!strcmp(tmp,"get")) import_roster=-1;
++		if (!strcmp(tmp,"import")) import_roster=0;
++		else if (!strcmp(tmp,"get")) import_roster=0;
+ 	}
+ 
+ 	user=user_create(from,uin,password);
+diff -durN jabber-gg-transport-2.0.7.orig/src/sessions.c jabber-gg-transport-2.0.7/src/sessions.c
+--- jabber-gg-transport-2.0.7.orig/src/sessions.c	2003-09-10 09:25:38.000000000 +0200
++++ jabber-gg-transport-2.0.7/src/sessions.c	2004-02-12 12:32:47.797025261 +0100
+@@ -439,6 +439,7 @@
+ 				gg_pubdir50_free(s->pubdir_change);
+ 				s->pubdir_change=NULL;
+ 			}
++#if 0
+ 			if (s->import_roster){
+ 				struct gg_http * gghttp;
+ 				Request *r;
+@@ -454,6 +455,7 @@
+ 				r=add_request(rt,s->jid,NULL,"",NULL,(void*)gghttp,s->s);
+ 				s->import_roster=0;
+ 			}
++#endif
+ 			break;
+ 		case GG_EVENT_NOTIFY:
+ 			session_event_notify(s,event);
