@@ -38,8 +38,6 @@ install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 
-gzip -9nf AUTHORS ChangeLog README TODO README.Pl jggtrans.xml.Pl
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -59,8 +57,8 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc AUTHORS ChangeLog README TODO README.Pl jggtrans.xml.Pl
 %attr(755,root,root) %{_sbindir}/*
 %attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jggtrans.xml
-%attr(755,root,root) /etc/rc.d/init.d/jggtrans
+%attr(754,root,root) /etc/rc.d/init.d/jggtrans
 %config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jggtrans
