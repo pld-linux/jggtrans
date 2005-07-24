@@ -12,11 +12,15 @@ Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-spooldir.patch
+Patch2:		%{name}-external.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
+BuildRequires:	automake
+BuildRequires:	autoconf
 BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	glib2-devel
 BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	pkgconfig
+BuildRequires:	libgadu-devel
 Requires:	jabber-common
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/usr/bin/perl
@@ -34,8 +38,12 @@ u¿ytkownikami GaduGadu.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	%{?debug:--with-efence} \
 	--sysconfdir=/etc/jabber
