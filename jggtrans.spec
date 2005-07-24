@@ -8,7 +8,7 @@ Version:	2.2.0
 Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://files.jabberstudio.org/jabber-gg-transport/%{name}-%{version}.tar.gz
 # Source0-md5:	0365c0aa9e00b0c6f607f1b5cc5eb2f6
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
@@ -20,13 +20,13 @@ BuildRequires:	automake
 BuildRequires:	autoconf
 BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	glib2-devel
+BuildRequires:	libgadu-devel
 BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	pkgconfig
-BuildRequires:	libgadu-devel
-Requires:	jabber-common
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/usr/bin/perl
 Requires(pre):	jabber-common
+Requires:	jabber-common
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -94,7 +94,7 @@ fi
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO README.Pl jggtrans.xml.Pl
 %attr(755,root,root) %{_sbindir}/*
-%attr(640,root,jabber) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/jabber/jggtrans.xml
+%attr(640,root,jabber) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/jabber/jggtrans.xml
 %attr(754,root,root) /etc/rc.d/init.d/jggtrans
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/jggtrans
 %attr(770,root,jabber) /var/lib/jggtrans
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/jggtrans
