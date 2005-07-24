@@ -1,14 +1,13 @@
-%bcond_with	libgadu_snapshot
 
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
-Version:	2.1.0
+Version:	2.2.0
 Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://www.jabberstudio.org/files/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	cf270b07707e4d2dd3f396068786a38d
+Source0:	http://files.jabberstudio.org/%{name}/%{name}-%{version}.tar.gz
+# Source0-md5:	0365c0aa9e00b0c6f607f1b5cc5eb2f6
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
@@ -16,7 +15,6 @@ Patch1:		%{name}-spooldir.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	glib2-devel
-BuildRequires:	libgadu-devel >= 4:1.4
 BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	pkgconfig
 Requires:	jabber-common
@@ -40,7 +38,6 @@ u¿ytkownikami GaduGadu.
 %build
 %configure \
 	%{?debug:--with-efence} \
-	%{?with_libgadu_snapshot:--with-libgadu-snapshot} \
 	--sysconfdir=/etc/jabber
 %{__make}
 
