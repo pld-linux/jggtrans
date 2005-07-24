@@ -1,0 +1,37 @@
+diff -urbB jabber-gg-transport-2.2.0.org/configure.ac jabber-gg-transport-2.2.0/configure.ac
+--- jabber-gg-transport-2.2.0.org/configure.ac	2005-07-24 17:28:46.000000000 +0200
++++ jabber-gg-transport-2.2.0/configure.ac	2005-07-24 21:05:57.123545288 +0200
+@@ -59,6 +59,7 @@
+ AC_CHECK_FUNCS([memset strchr],[],AC_MSG_ERROR("Some functions needed are missing"))
+ 
+ AC_CONFIG_SUBDIRS([libxode libgadu])
++PKG_CHECK_MODULES(LIBGADU, libgadu, [], AC_MSG_ERROR("Some functions needed are missing"))
+ 
+ MKINSTALLDIRS="${MKINSTALLDIRS} -m 755"
+ XGETTEXT="${XGETTEXT} --keyword=L_"
+diff -urbB jabber-gg-transport-2.2.0.org/Makefile.am jabber-gg-transport-2.2.0/Makefile.am
+--- jabber-gg-transport-2.2.0.org/Makefile.am	2005-04-01 17:15:17.000000000 +0200
++++ jabber-gg-transport-2.2.0/Makefile.am	2005-07-24 21:05:49.689675408 +0200
+@@ -1,5 +1,5 @@
+ 
+-SUBDIRS = libxode libgadu src po
++SUBDIRS = libxode src po
+ 
+ .PHONY: cosmetics ChangeLog
+ 
+diff -urbB jabber-gg-transport-2.2.0.org/src/Makefile.am jabber-gg-transport-2.2.0/src/Makefile.am
+--- jabber-gg-transport-2.2.0.org/src/Makefile.am	2005-07-22 18:19:02.000000000 +0200
++++ jabber-gg-transport-2.2.0/src/Makefile.am	2005-07-24 21:05:49.690675256 +0200
+@@ -59,10 +59,10 @@
+ encodingtest_CFLAGS=-DENCODINGTEST
+ encodingtest_LDADD=$(GLIB_LIBS)
+ 
+-INCLUDES=$(GLIB_CFLAGS) $(LIBGADU_INCLUDES) -I../libgadu/lib $(JK_LIBIDN_CFLAGS) -I$(top_srcdir)/libxode/include
++INCLUDES=$(GLIB_CFLAGS) $(LIBGADU_INCLUDES) $(JK_LIBIDN_CFLAGS) -I$(top_srcdir)/libxode/include
+ 
+ jggtrans_CFLAGS=-DVERSION="\"$(VERSION)\"" -DSYSCONFDIR="\"$(sysconfdir)\"" -DLOCALEDIR="\"$(localedir)\""
+-jggtrans_LDADD=$(INTLLIBS) $(GLIB_LIBS) ../libgadu/lib/libgadu.la $(LIBGADU_LIBS) $(LIBGADU_LDFLAGS) $(JK_LIBIDN_LIBS) $(top_builddir)/libxode/src/libxode.la
++jggtrans_LDADD=$(INTLLIBS) $(GLIB_LIBS) $(LIBGADU_LIBS) $(LIBGADU_LDFLAGS) $(JK_LIBIDN_LIBS) $(top_builddir)/libxode/src/libxode.la
+ 
+ tags: 
+ 	ctags -R . ../libxode/
