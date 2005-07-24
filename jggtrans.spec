@@ -16,8 +16,8 @@ Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-spooldir.patch
 Patch2:		%{name}-external.patch
 URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
-BuildRequires:	automake
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	glib2-devel
 BuildRequires:	libgadu-devel
