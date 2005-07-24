@@ -1,4 +1,6 @@
-
+# TODO:
+# - use shared/external libxode
+#
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
