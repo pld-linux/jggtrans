@@ -1,15 +1,17 @@
-diff -urbB jabber-gg-transport-2.2.0.org/configure.ac jabber-gg-transport-2.2.0/configure.ac
+diff -urBb jabber-gg-transport-2.2.0.org/configure.ac jabber-gg-transport-2.2.0/configure.ac
 --- jabber-gg-transport-2.2.0.org/configure.ac	2005-07-24 17:28:46.000000000 +0200
-+++ jabber-gg-transport-2.2.0/configure.ac	2005-07-24 21:05:57.123545288 +0200
-@@ -59,6 +59,7 @@
++++ jabber-gg-transport-2.2.0/configure.ac	2005-07-24 21:13:27.277111544 +0200
+@@ -58,7 +58,8 @@
+ AC_CHECK_FUNCS([select],[],AC_MSG_ERROR("Some functions needed are missing"))
  AC_CHECK_FUNCS([memset strchr],[],AC_MSG_ERROR("Some functions needed are missing"))
  
- AC_CONFIG_SUBDIRS([libxode libgadu])
+-AC_CONFIG_SUBDIRS([libxode libgadu])
++AC_CONFIG_SUBDIRS([libxode])
 +PKG_CHECK_MODULES(LIBGADU, libgadu, [], AC_MSG_ERROR("Some functions needed are missing"))
  
  MKINSTALLDIRS="${MKINSTALLDIRS} -m 755"
  XGETTEXT="${XGETTEXT} --keyword=L_"
-diff -urbB jabber-gg-transport-2.2.0.org/Makefile.am jabber-gg-transport-2.2.0/Makefile.am
+diff -urBb jabber-gg-transport-2.2.0.org/Makefile.am jabber-gg-transport-2.2.0/Makefile.am
 --- jabber-gg-transport-2.2.0.org/Makefile.am	2005-04-01 17:15:17.000000000 +0200
 +++ jabber-gg-transport-2.2.0/Makefile.am	2005-07-24 21:05:49.689675408 +0200
 @@ -1,5 +1,5 @@
@@ -19,7 +21,7 @@ diff -urbB jabber-gg-transport-2.2.0.org/Makefile.am jabber-gg-transport-2.2.0/M
  
  .PHONY: cosmetics ChangeLog
  
-diff -urbB jabber-gg-transport-2.2.0.org/src/Makefile.am jabber-gg-transport-2.2.0/src/Makefile.am
+diff -urBb jabber-gg-transport-2.2.0.org/src/Makefile.am jabber-gg-transport-2.2.0/src/Makefile.am
 --- jabber-gg-transport-2.2.0.org/src/Makefile.am	2005-07-22 18:19:02.000000000 +0200
 +++ jabber-gg-transport-2.2.0/src/Makefile.am	2005-07-24 21:05:49.690675256 +0200
 @@ -59,10 +59,10 @@
