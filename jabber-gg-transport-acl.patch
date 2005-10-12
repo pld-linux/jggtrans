@@ -1,0 +1,12 @@
+diff -urN jabber-gg-transport-2.2.1.org/src/acl.c jabber-gg-transport-2.2.1/src/acl.c
+--- jabber-gg-transport-2.2.1.org/src/acl.c	2005-07-24 17:02:36.000000000 +0200
++++ jabber-gg-transport-2.2.1/src/acl.c	2005-10-12 08:58:19.537997264 +0200
+@@ -95,7 +95,7 @@
+ 		if (acl_e->who && jid){
+ 			if (fnmatch(acl_e->who,jid,0)) continue; /* no match */
+ 		}
+-		if (acl_e && !xmlnode_get_tag(x,acl_e->what)) continue; /* no match */
++		if (acl_e && acl_e->what && !xmlnode_get_tag(x,acl_e->what)) continue; /* no match */
+ 		result=acl_e->allow;
+ 		break;
+ 	}
