@@ -1,6 +1,7 @@
-# TODO:
-# - use shared/external libxode
 #
+# Conditional build:
+%bcond_with internal_libgadu	# Build with transport's internal libgadu
+
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
 Name:		jabber-gg-transport
@@ -20,9 +21,11 @@ URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95.1
+BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
-BuildRequires:	libgadu-devel
+%{!?with_internal_libgadu:BuildRequires:	libgadu-devel}
 BuildRequires:	libidn-devel >= 0.3.0
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
 Requires(post,preun):	/sbin/chkconfig
 Requires(post):	/usr/bin/perl
@@ -41,7 +44,7 @@ u¿ytkownikami GaduGadu.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+%{!?with_internal_libgadu:%patch2 -p1}
 %patch3 -p1
 
 %build
