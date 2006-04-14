@@ -27,8 +27,8 @@ BuildRequires:	glib2-devel
 BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+Requires(post):	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
-Requires(post):	/usr/bin/perl
 Requires(pre):	jabber-common
 Requires:	jabber-common
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -53,7 +53,7 @@ u¿ytkownikami GaduGadu.
 %{__automake}
 %configure \
 	%{?debug:--with-efence} \
-	--sysconfdir=/etc/jabber
+	--sysconfdir=%{_sysconfdir}/jabber
 %{__make}
 
 %install
@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/jabber,/etc/rc.d/init.d,/etc/sysconfig,/var/lib/jggtrans}
 
 %{__make} install \
-	DESTDIR="$RPM_BUILD_ROOT" 
+	DESTDIR="$RPM_BUILD_ROOT"
 
 install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}/jabber
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
@@ -73,11 +73,11 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /etc/jabber/secret ] ; then
-	SECRET=`cat /etc/jabber/secret`
+if [ -f %{_sysconfdir}/jabber/secret ] ; then
+	SECRET=`cat %{_sysconfdir}/jabber/secret`
 	if [ -n "$SECRET" ] ; then
-        	echo "Updating component authentication secret in jggtrans.xml..."
-		perl -pi -e "s/>secret</>$SECRET</" /etc/jabber/jggtrans.xml
+		echo "Updating component authentication secret in jggtrans.xml..."
+		%{__sed} -i -e "s/>secret</>$SECRET</" /etc/jabber/jggtrans.xml
 	fi
 fi
 /sbin/chkconfig --add jggtrans
