@@ -9,8 +9,8 @@ Version:	2.2.2
 Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:       http://jggtrans.jajcus.net/downloads/jggtrans-%{version}.tar.gz
-# Source0-md5: 70bbec4e9c438cda6b7379ccfc63492f
+Source0:	http://jggtrans.jajcus.net/downloads/jggtrans-%{version}.tar.gz
+# Source0-md5:	70bbec4e9c438cda6b7379ccfc63492f
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
