@@ -1,32 +1,36 @@
-# TODO:
-# - use shared/external libxode
 #
+# Conditional build:
+%bcond_with internal_libgadu	# Build with transport's internal libgadu
+
 Summary:	GaduGadu transport module for Jabber
 Summary(pl):	Modu³ transportowy GaduGadu dla systemu Jabber
-Name:		jabber-gg-transport
-Version:	2.2.1
+Name:		jggtrans
+Version:	2.2.2
 Release:	1
 License:	GPL
 Group:		Applications/Communications
-Source0:	http://files.jabberstudio.org/jabber-gg-transport/%{name}-%{version}.tar.gz
-# Source0-md5:	a202536d6af2f1a280d0aab3cf19cc2c
+Source0:	http://jggtrans.jajcus.net/downloads/jggtrans-%{version}.tar.gz
+# Source0-md5:	70bbec4e9c438cda6b7379ccfc63492f
 Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-spooldir.patch
 Patch2:		%{name}-external.patch
-URL:		http://www.jabberstudio.org/projects/jabber-gg-transport/project/view.php
+URL:		http://jggtrans.jajcus.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95.1
+BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
-BuildRequires:	libgadu-devel
+%{!?with_internal_libgadu:BuildRequires:	libgadu-devel}
 BuildRequires:	libidn-devel >= 0.3.0
+BuildRequires:	libtool
 BuildRequires:	pkgconfig
+Requires(post):	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
-Requires(post):	/usr/bin/perl
 Requires(pre):	jabber-common
 Requires:	jabber-common
+Obsoletes:	jabber-gg-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,7 +44,7 @@ u¿ytkownikami GaduGadu.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+%{!?with_internal_libgadu:%patch2 -p1}
 
 %build
 %{__aclocal}
@@ -48,7 +52,7 @@ u¿ytkownikami GaduGadu.
 %{__automake}
 %configure \
 	%{?debug:--with-efence} \
-	--sysconfdir=/etc/jabber
+	--sysconfdir=%{_sysconfdir}/jabber
 %{__make}
 
 %install
@@ -56,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/jabber,/etc/rc.d/init.d,/etc/sysconfig,/var/lib/jggtrans}
 
 %{__make} install \
-	DESTDIR="$RPM_BUILD_ROOT" 
+	DESTDIR="$RPM_BUILD_ROOT"
 
 install jggtrans.xml $RPM_BUILD_ROOT%{_sysconfdir}/jabber
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/jggtrans
@@ -68,11 +72,11 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/jggtrans
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /etc/jabber/secret ] ; then
-	SECRET=`cat /etc/jabber/secret`
+if [ -f %{_sysconfdir}/jabber/secret ] ; then
+	SECRET=`cat %{_sysconfdir}/jabber/secret`
 	if [ -n "$SECRET" ] ; then
-        	echo "Updating component authentication secret in jggtrans.xml..."
-		perl -pi -e "s/>secret</>$SECRET</" /etc/jabber/jggtrans.xml
+		echo "Updating component authentication secret in jggtrans.xml..."
+		%{__sed} -i -e "s/>secret</>$SECRET</" /etc/jabber/jggtrans.xml
 	fi
 fi
 /sbin/chkconfig --add jggtrans
@@ -92,7 +96,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO README.Pl jggtrans.xml.Pl
+%doc AUTHORS ChangeLog NEWS README README.Pl jggtrans.xml.Pl
 %attr(755,root,root) %{_sbindir}/*
 %attr(640,root,jabber) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/jabber/jggtrans.xml
 %attr(754,root,root) /etc/rc.d/init.d/jggtrans
