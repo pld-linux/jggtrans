@@ -3,7 +3,7 @@
 %bcond_with internal_libgadu	# Build with transport's internal libgadu
 
 Summary:	GaduGadu transport module for Jabber
-Summary(pl):	Modu≥ transportowy GaduGadu dla systemu Jabber
+Summary(pl.UTF-8):   Modu≈Ç transportowy GaduGadu dla systemu Jabber
 Name:		jggtrans
 Version:	2.2.2
 Release:	1
@@ -36,9 +36,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This module allows Jabber to communicate with GaduGadu server.
 
-%description -l pl
-Modu≥ ten umoøliwia uøytkownikom Jabbera komunikowanie siÍ z
-uøytkownikami GaduGadu.
+%description -l pl.UTF-8
+Modu≈Ç ten umo≈ºliwia u≈ºytkownikom Jabbera komunikowanie siƒô z
+u≈ºytkownikami GaduGadu.
 
 %prep
 %setup -q
