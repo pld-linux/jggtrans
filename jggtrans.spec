@@ -19,6 +19,7 @@ Patch2:		%{name}-external.patch
 URL:		http://jggtrans.jajcus.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	bind-devel
 BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel
@@ -47,6 +48,7 @@ użytkownikami GaduGadu.
 %{!?with_internal_libgadu:%patch2 -p1}
 
 %build
+%{__gettextize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
