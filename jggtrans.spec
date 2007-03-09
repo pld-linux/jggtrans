@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_with internal_libgadu	# Build with transport's internal libgadu
-
+%bcond_with	internal_libgadu	# Build with transport's internal libgadu
+#
 Summary:	GaduGadu transport module for Jabber
 Summary(pl.UTF-8):	Moduł transportowy GaduGadu dla systemu Jabber
 Name:		jggtrans
@@ -19,10 +19,9 @@ Patch2:		%{name}-external.patch
 URL:		http://jggtrans.jajcus.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	bind-devel
 BuildRequires:	expat-devel >= 1.95.1
-BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel
+BuildRequires:	gettext-devel >= 0.14.1
+BuildRequires:	glib2-devel >= 2.0.0
 %{!?with_internal_libgadu:BuildRequires:	libgadu-devel}
 BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	libtool
@@ -54,6 +53,7 @@ użytkownikami GaduGadu.
 %{__automake}
 %configure \
 	%{?debug:--with-efence} \
+	--without-bind \
 	--sysconfdir=%{_sysconfdir}/jabber
 %{__make}
 
