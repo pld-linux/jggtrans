@@ -26,6 +26,7 @@ Requires(post):	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	jabber-common
 Requires:	jabber-common
+Requires:	libgadu-devel >= 1.9.0
 Obsoletes:	jabber-gg-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
