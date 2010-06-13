@@ -44,6 +44,7 @@ użytkownikami GaduGadu.
 
 %build
 %{__gettextize}
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
