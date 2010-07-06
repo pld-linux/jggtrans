@@ -3,7 +3,7 @@ Summary:	GaduGadu transport module for Jabber
 Summary(pl.UTF-8):	Moduł transportowy GaduGadu dla systemu Jabber
 Name:		jggtrans
 Version:	2.2.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Communications
 Source0:	http://jggtrans.jajcus.net/downloads/jggtrans-%{version}.tar.gz
@@ -12,6 +12,7 @@ Source1:	jggtrans.init
 Source2:	jggtrans.sysconfig
 Patch0:		%{name}-pidfile.patch
 Patch1:		%{name}-spooldir.patch
+Patch2:		diff-trunk_src-from-r714-to-r716.diff
 URL:		http://jggtrans.jajcus.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -41,6 +42,7 @@ użytkownikami GaduGadu.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__gettextize}
