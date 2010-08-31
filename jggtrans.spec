@@ -1,4 +1,5 @@
 #
+%define	libgadu_ver	1.9.0
 Summary:	GaduGadu transport module for Jabber
 Summary(pl.UTF-8):	Moduł transportowy GaduGadu dla systemu Jabber
 Name:		jggtrans
@@ -19,7 +20,7 @@ BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95.1
 BuildRequires:	gettext-devel >= 0.14.1
 BuildRequires:	glib2-devel >= 2.0.0
-BuildRequires:	libgadu-devel >= 1.9.0
+BuildRequires:	libgadu-devel >= %{libgadu_ver}
 BuildRequires:	libidn-devel >= 0.3.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
@@ -27,7 +28,7 @@ Requires(post):	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
 Requires(pre):	jabber-common
 Requires:	jabber-common
-Requires:	libgadu >= 1.9.0
+Requires:	libgadu >= %{libgadu_ver}
 Obsoletes:	jabber-gg-transport
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
