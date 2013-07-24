@@ -1,0 +1,38 @@
+diff -ur jggtrans-2.2.4.orig/src/main.c jggtrans-2.2.4.fix/src/main.c
+--- jggtrans-2.2.4.orig/src/main.c	2013-07-24 13:07:26.000000000 +0000
++++ jggtrans-2.2.4.fix/src/main.c	2013-07-24 15:25:29.822178828 +0000
+@@ -327,7 +327,7 @@
+ 			fclose(pidfile);
+ 		}
+ 		debug(L_("Daemon born, pid %i."),pid);
+-		exit(0);
++		_exit(0);
+ 	}
+ 
+ 	for (fd=0; fd < OPEN_MAX; fd++)
+@@ -566,6 +566,12 @@
+ 	}
+ 	else if (uid==0 && !restarting) g_error("%s", L_("Refusing to run with uid=0"));
+ 
++	if (!fg && !restarting) daemonize(pidfile);
++	else if (pidfile!=NULL){
++		fprintf(pidfile,"%i",getpid());
++		fclose(pidfile);
++	}
++
+ 	main_loop=g_main_new(0);
+ 
+ 	if (jabber_init()) return 1;
+@@ -575,12 +581,6 @@
+ 	if (requests_init()) return 1;
+ 	if (acl_init()) return 1;
+ 
+-	if (!fg && !restarting) daemonize(pidfile);
+-	else if (pidfile!=NULL){
+-		fprintf(pidfile,"%i",getpid());
+-		fclose(pidfile);
+-	}
+-
+ 	if (log_filename){
+ 		log_file=fopen(log_filename,"a");
+ 		if (!log_file) g_critical(L_("Couldn't open log file '%s': %s"),
