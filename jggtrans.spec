@@ -17,7 +17,7 @@ URL:		http://jggtrans.jajcus.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel >= 1.95.1
-BuildRequires:	gettext-devel >= 0.14.1
+BuildRequires:	gettext-tools >= 0.14.1
 BuildRequires:	glib2-devel >= 2.0.0
 BuildRequires:	libgadu-devel >= %{libgadu_ver}
 BuildRequires:	libidn-devel >= 0.3.0
